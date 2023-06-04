@@ -4,6 +4,12 @@ metadata:
   name: nhkv-user-msi
 spec:
   provider: azure
+  secretObjects:
+  - secretName: mongodb-cs
+    type: Opaque
+    data:
+    - objectName: "mongodb-cs"
+      key: mongodb-cs
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
