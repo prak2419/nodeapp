@@ -1,0 +1,18 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: nhkv-user-msi
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "true"
+    userAssignedIdentityID: "bc3fdf93-38c9-4015-b4a6-14822d30bef3"
+    keyvaultName: "nhkv-weu"
+    objects: |
+      array:
+        - |
+          objectName: mongodb-cs
+          objectType: secret
+          objectVersion: ""
+    tenantId: "16b3c013-d300-468d-ac64-7eda0820b6d3"
