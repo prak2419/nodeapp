@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nodeapp-ingress
+  namespace: nodeapp
+spec:
+  rules:
+  - host: nodeapp.ramnode.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nodeapp-svc
+            port:
+              number: 80

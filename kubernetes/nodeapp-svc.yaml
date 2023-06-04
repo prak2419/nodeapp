@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp-svc
+  namespace: nodeapp
+  labels:
+    app: nodeapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: nodeapp
+  selector:
+    app: nodeapp
