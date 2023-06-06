@@ -5,20 +5,20 @@ metadata:
 spec:
   provider: azure
   secretObjects:
-  - secretName: mongodb-cs
+  - secretName: <secret_name> # Avoid sepcial characters in secret name
     type: Opaque
     data:
-    - objectName: "mongodb-cs"
-      key: mongodb-cs
+    - objectName: "<secret_name>"
+      key: <secret_name>
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
-    userAssignedIdentityID: "bc3fdf93-38c9-4015-b4a6-14822d30bef3"
-    keyvaultName: "nhkv-weu"
+    userAssignedIdentityID: "<client_id of key vault csi managed identity>"
+    keyvaultName: "<key vault name>"
     objects: |
       array:
         - |
           objectName: mongodb-cs
           objectType: secret
           objectVersion: ""
-    tenantId: "16b3c013-d300-468d-ac64-7eda0820b6d3"
+    tenantId: "<Tenant_ID>"
