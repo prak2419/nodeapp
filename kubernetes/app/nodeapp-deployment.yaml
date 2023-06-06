@@ -34,8 +34,11 @@ spec:
           limits:
             cpu: 1000m
             memory: 1Gi
+        volumeMounts:
+        - mountPath: /app/folder
+          name: secrets-store01-inline
         env:
-        - name: mongodb-cs
+        - name: mongodbcs
           valueFrom:
             secretKeyRef:
               name: mongodb-cs
@@ -43,4 +46,11 @@ spec:
         ports:
         - containerPort: 3000
           name: nodeapp
+      volumes:
+      - name: secrets-store01-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "nhkv-user-msi"
       restartPolicy: Always
