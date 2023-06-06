@@ -71,14 +71,14 @@ nodeapp-svc   LoadBalancer   10.15.44.43   <public_ip>   80:32252/TCP   54m
  - /api/getSpeakerSessions/:speaker - Gets all sessions for a given speaker
  - /api/getSessionName/:sessionname - Gets all sessions for a given session name
 
-Get All Sessions
+> Get All Sessions
 
 ![Alt text](./img/getsessions.png)
 
-Create a new session
+> Create a new session
 
 ![Alt text](./img/newsession.png)
 
-Get a session by a speaker name
+> Get a session by a speaker name
 
 ![Alt text](./img/getsessionbyspeaker.png)
