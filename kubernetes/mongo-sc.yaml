@@ -6,13 +6,13 @@ provisioner: file.csi.azure.com # replace with "kubernetes.io/azure-file" if aks
 reclaimPolicy: Retain # default is Delete
 allowVolumeExpansion: true
 mountOptions:
-  - dir_mode=0777
-  - file_mode=0777
-  - uid=0
-  - gid=0
-  - mfsymlinks
-  - cache=strict
-  - actimeo=30
+- dir_mode=0777
+- file_mode=0777
+- uid=0
+- gid=0
+- mfsymlinks
+- cache=strict
+- actimeo=30
 parameters:
   skuName: Standard_LRS
   location: westeurope

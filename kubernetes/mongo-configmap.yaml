@@ -5,7 +5,8 @@ metadata:
 data:
   script.sh: |-
     #!/bin/bash
-    if [[ "$POD_NAME" = "mongo-0" ]];
+    mongod --dbpath=/data/mongofs
+    if [[ "$POD_NAME" = "mongodb-0" ]];
     then
     export MONGODB_REPLICA_SET_MODE="primary"
     else

@@ -4,9 +4,10 @@ var express = require('express');
     mongoose = require('mongoose');
     Conference = require('./api/models/confModels');
     bodyParser = require('body-parser');
+    mongocs = process.env.mongodb-cs 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://mongo:27017/conferencedb');
+mongoose.connect(mongocs);
 
 const database = mongoose.connection;
 

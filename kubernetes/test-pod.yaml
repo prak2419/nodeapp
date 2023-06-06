@@ -8,11 +8,11 @@ spec:
   - name: busybox
     image: registry.k8s.io/e2e-test-images/busybox:1.29-1
     env:
-    - name: demosecret
+    - name: mongodb-cs
       valueFrom:
-      secretKeyRef:
-        name: demosecret
-        key: demosecret
+        secretKeyRef:
+          name: mongodb-cs
+          key: mongodb-cs
     command:
     - "/bin/sleep"
     - "10000"

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
-  namespace: demo-mongodb
+  namespace: nodeapp
 spec:
   selector:
     matchLabels:
@@ -16,25 +16,27 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-        - name: mongodb
-          image: mongo:latest
-          command:
-            - mongod
-            - "--bind_ip_all"
-            - "--replSet"
-            - rs0
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: vol-azurefile-mongo
-              mountPath: /data/db
+      - name: mongodb
+        image: mongo:latest
+        command:
+        - mongod
+        - "--bind_ip_all"
+        - "--replSet"
+        - rs0
+        - "--dbpath"
+        - /data/mongofs
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: vol-azurefile-mongo
+          mountPath: /data/mongofs
   volumeClaimTemplates:
-    - metadata:
-        name: vol-azurefile-mongo
-      spec:
-        storageClassName: sc-azurefile-mongo
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
+  - metadata:
+      name: vol-azurefile-mongo
+    spec:
+      storageClassName: sc-azurefile-mongo
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
