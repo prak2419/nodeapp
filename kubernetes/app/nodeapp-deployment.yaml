@@ -26,7 +26,7 @@ spec:
       # - Each init container must complete successfully before the next one starts.
       containers:
       - name: nodeapp
-        image: <acr_name>.azurecr.io/nodeapp:latest
+        image: ramnode.azurecr.io/nodeapp:ca4edb3bd141c2a80980e940c4f9e587d70f15d
         resources:
           requests:
             cpu: 100m
@@ -41,8 +41,8 @@ spec:
         - name: mongodbcs
           valueFrom:
             secretKeyRef:
-              name: <secret_name>
-              key: <secret_key_name>
+              name: mongodb-cs
+              key: mongodb-cs
         ports:
         - containerPort: 3000
           name: nodeapp
