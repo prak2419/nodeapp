@@ -5,6 +5,8 @@ var express = require('express');
     Conference = require('./api/models/confModels');
     bodyParser = require('body-parser');
     mongocs = process.env.mongodb-cs 
+    const Prometheus = require('prom-client');
+    const collectDefaultMetrics = Prometheus.collectDefaultMetrics();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongocs);
@@ -22,6 +24,11 @@ database.once('connected', () => {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
+
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', Prometheus.register.contentType);
+    res.end(await Prometheus.register.metrics());
+});
 
 var routes = require('./api/routes/confRoutes.js');
 

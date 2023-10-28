@@ -24,7 +24,8 @@
   "homepage": "https://github.com/prak2419/conference#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^7.2.2"
+    "mongoose": "^7.2.2",
+    "prom-client": "^11.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
