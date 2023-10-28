@@ -24,4 +24,7 @@ module.exports = function(app) {
     
      app.route('/api/getSessionName/:sessionname')
         .get(conf.list_all_conferences_by_sessionname);
+
+     app.route('/metrics')
+        .get(conf.send_metrics);
 }

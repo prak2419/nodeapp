@@ -25,11 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-app.get('/metrics', async (req, res) => {
-    res.set('Content-Type', Prometheus.register.contentType);
-    res.end(await Prometheus.register.metrics());
-});
-
 var routes = require('./api/routes/confRoutes.js');
 
 routes(app);

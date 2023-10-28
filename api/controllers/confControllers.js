@@ -51,3 +51,8 @@ exports.delete_a_conference = async (req, res) => {
     results = await Conference.remove( { id: id });
     res.json(results);
 };
+
+exports.send_metrics =  async (req, res) => {
+    res.set('Content-Type', Prometheus.register.contentType);
+    res.end(await Prometheus.register.metrics());
+};
