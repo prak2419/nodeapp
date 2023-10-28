@@ -3,6 +3,9 @@
 var mongoose = require('mongoose'),
     Conference = mongoose.model('conferences');
 
+    const Prometheus = require('prom-client');
+    const collectDefaultMetrics = Prometheus.collectDefaultMetrics();
+
 exports.list_all_conferences = async (req, res) => {
     let results;
     results = await Conference.find()
