@@ -31,15 +31,16 @@ name: Build and deploy an app to AKS
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main","dev"]
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: "your-azure-container-registry"
-  CONTAINER_NAME: "your-container-name"
-  RESOURCE_GROUP: "your-resource-group"
-  CLUSTER_NAME: "your-cluster-name"
-  DEPLOYMENT_MANIFEST_PATH: "your-deployment-manifest-path"
+  AZURE_CONTAINER_REGISTRY: "ramnode"
+  CONTAINER_NAME: "nodeapp"
+  RESOURCE_GROUP: "nh-aks-demo-rg"
+  CLUSTER_NAME: "nh-demo-weu-nodejs"
+  APP_DEPLOYMENT_MANIFEST_PATH: "./kubernetes/app"
+  DB_DEPLOYMENT_MANIFEST_PATH: "./kubernetes/mongodb"
 
 jobs:
   buildImage:
@@ -55,9 +56,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v1.4.6
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Builds and pushes an image up to your Azure Container Registry
       - name: Build and push image to ACR
@@ -79,9 +78,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v1.4.6
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Use kubelogin to configure your kubeconfig for Azure auth
       - name: Set up kubelogin for non-interactive login
@@ -103,6 +100,15 @@ jobs:
         uses: Azure/k8s-deploy@v4
         with:
           action: deploy
-          manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
+          manifests: ${{ env.APP_DEPLOYMENT_MANIFEST_PATH }}
+          namespace: ghtest
           images: |
             ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
+
+      # Deploys application based on given manifest file
+      - name: Deploys application
+        uses: Azure/k8s-deploy@v4
+        with:
+          action: deploy
+          manifests: ${{ env.DB_DEPLOYMENT_MANIFEST_PATH }}
+          namespace: ghtest
