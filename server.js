@@ -4,7 +4,7 @@ var express = require('express');
     mongoose = require('mongoose');
     Conference = require('./api/models/confModels');
     bodyParser = require('body-parser');
-    mongocs = process.env.mongodb-cs 
+    mongocs = process.env.mongodb
     const Prometheus = require('prom-client');
     const collectDefaultMetrics = Prometheus.collectDefaultMetrics();
 
